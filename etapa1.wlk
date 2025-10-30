@@ -10,35 +10,37 @@ class Profesional {
   method universidad() = universidad
 
   method honorario()
+
+  method provincias()
 }
 
-class ProfesionalUniversidad inherits Profesional {
+class ProfVinculado inherits Profesional {
   const provincias = [universidad.provincia()] //String
-  
-  method provincias() = provincias
 
   override method honorario() = universidad.honorario()
-
+  
+  override method provincias() = provincias
 }
 
-class ProfesionalLitoral inherits Profesional {
+class ProfLitoral inherits Profesional {
   const provincias = ["Entre Rios", "Santa Fe", "Corrientes"]
-  
-  method provincias() = provincias
 
   override method honorario() = 3000
+
+  override method provincias() = provincias
 }
 
-class ProfesionalLibre inherits Profesional {
+class ProfLibre inherits Profesional {
+  const honorarios // Numero
   const provincias // Lista
-  const honorarios
 
-  method provincias() = provincias
   override method honorario() = honorarios
+  
+  override method provincias() = provincias
 }
 
 class EmpresaServicios {
-  const property profesionales = []
+  const property profesionales = #{}
 
   method profesionalesQueEstudian(unaUniversidad) {
     return profesionales.count({prof => prof.universidad() == unaUniversidad})
