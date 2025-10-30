@@ -43,7 +43,7 @@ class ProfesionalLibre inherits Profesional {
 }
 
 class EmpresaServicios {
-  const property profesionales
+  const property profesionales = []
 
   method profesionalesQueEstudian(unaUniversidad) {
     return profesionales.count({prof => prof.universidad() == unaUniversidad})
@@ -53,7 +53,13 @@ class EmpresaServicios {
     profesionales.filter({prof => prof.honorario() > unHonorario})
   }
 
-  method universidadesFormadoras() = profesionales.map({prof => prof.universidad()}).asSet()
+  method conjuntoDeUniversidades() {
+    const universidades = #{}
+    profesionales.forEach({prof => universidades.add(prof.universidad())})
+    return universidades
+  }
 
   method profesionalMasBarato() = profesionales.min({prof => prof.honorario()})
+
+
 }
