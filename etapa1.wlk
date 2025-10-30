@@ -15,7 +15,7 @@ class Profesional {
   method provincias()
 
   method trabajaEn(unaProvincia) {
-    self.provincias().contains(unaProvincia)
+    return self.provincias().contains(unaProvincia)
   }
 }
 
