@@ -10,18 +10,15 @@ class Profesional {
   method universidad() = universidad
 
   method honorario()
-
-  method puedeTrabajar()
 }
 
 class ProfesionalUniversidad inherits Profesional {
-  const provincia //String
-
- method provincia() = provincia
+  const provincias = [universidad.provincia()] //String
+  
+  method provincias() = provincias
 
   override method honorario() = universidad.honorario()
 
-  override method puedeTrabajar() = self.provincia() == universidad.provincia()
 }
 
 class ProfesionalLitoral inherits Profesional {
@@ -30,8 +27,6 @@ class ProfesionalLitoral inherits Profesional {
   method provincias() = provincias
 
   override method honorario() = 3000
-
-  override method puedeTrabajar() = provincias.contains(universidad.provincia())
 }
 
 class ProfesionalLibre inherits Profesional {
@@ -61,5 +56,5 @@ class EmpresaServicios {
 
   method profesionalMasBarato() = profesionales.min({prof => prof.honorario()})
 
-
+  method esDeGenteAcotada() = profesionales.all({prof => prof.provincias().size() <= 3})
 }
