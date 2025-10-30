@@ -1,3 +1,41 @@
-import example.*
+import etapa1.*
 
-describe "Pruebas de etapa 1"
+describe "Pruebas de etapa 1" {
+  const univSanMartin = new Universidad(provincia = "Buenos Aires", honorario = 3500)
+  const univRosario = new Universidad(provincia = "Santa Fe", honorario = 2800)
+  const univCorrientes = new Universidad(provincia = "Corrientes", honorario = 4200)
+  const univHurlingham = new Universidad(provincia = "Buenos Aires", honorario = 8800)
+  
+  //Profesionales
+  const juana = new ProfVinculado(universidad = univRosario)
+  const melina = new ProfLitoral(universidad = univCorrientes)
+  const rocio = new ProfLibre(universidad = univHurlingham,  honorarios = 5000, provincias = #{"Santa Fe", "Cordoba", "Buenos Aires"})
+  const luciana = new ProfLibre(universidad = univRosario, honorarios = 3200, provincias = #{"Santa Fe", "Entre Ríos"})
+  
+  const empresa = new EmpresaServicios(honorarioReferencia = 3500)
+  
+  method initialize() {
+    empresa.contratar(juana)
+    empresa.contratar(melina)
+    empresa.contratar(rocio)
+    empresa.contratar(luciana)
+  }
+  
+  test "Universidades" {
+    assert.equals(2, empresa.profesionalesQueEstudian(univRosario))
+    assert.equals(1, empresa.profesionalesQueEstudian(univHurlingham))
+    assert.equals(0, empresa.profesionalesQueEstudian(univSanMartin))
+  }
+
+  test "Profesional caro" {
+    assert.equals([rocio], empresa.profesionalesCaros())
+  }
+
+  test "Universidades Formadoras" {
+    assert.equals(#{univRosario, univCorrientes, univHurlingham}, empresa.universidadesFormadoras())
+  }
+
+  test "Profesional mas baratro es juana" {
+    assert.equals(juana, empresa.profesionalMasBarato())
+  }
+}

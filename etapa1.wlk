@@ -40,17 +40,23 @@ class ProfLibre inherits Profesional {
 }
 
 class EmpresaServicios {
-  const property profesionales = #{}
+  const profesionales = []
+  const honorarioReferencia
+
+  method profesionales() = profesionales
+  method honorarioReferencia() = honorarioReferencia
+
+  method contratar(unEmpleado){
+    profesionales.add(unEmpleado)
+  }
 
   method profesionalesQueEstudian(unaUniversidad) {
     return profesionales.count({prof => prof.universidad() == unaUniversidad})
   }
 
-  method profsConPrecioMasAltos(unHonorario) {
-    profesionales.filter({prof => prof.honorario() > unHonorario})
-  }
+  method profesionalesCaros() = profesionales.filter({prof => prof.honorario() > honorarioReferencia})
 
-  method conjuntoDeUniversidades() {
+  method universidadesFormadoras() {
     const universidades = #{}
     profesionales.forEach({prof => universidades.add(prof.universidad())})
     return universidades
