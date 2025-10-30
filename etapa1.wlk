@@ -1,3 +1,4 @@
+import etapa2.*
 class Universidad {
   const provincia
   const honorario
@@ -12,6 +13,10 @@ class Profesional {
   method honorario()
 
   method provincias()
+
+  method trabajaEn(unaProvincia) {
+    self.provincias().contains(unaProvincia)
+  }
 }
 
 class ProfVinculado inherits Profesional {
@@ -65,4 +70,6 @@ class EmpresaServicios {
   method profesionalMasBarato() = profesionales.min({prof => prof.honorario()})
 
   method esDeGenteAcotada() = profesionales.all({prof => prof.provincias().size() <= 3})
+
+  method puedeSatisfacer(solicitante) = profesionales.any({prof => solicitante.PuedeSerAtendido(prof)})
 }
